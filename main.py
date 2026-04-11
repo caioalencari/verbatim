@@ -108,7 +108,7 @@ async def transcrever_pdf(
 
     try:
         genai.configure(api_key=x_api_key)
-        model = genai.GenerativeModel("gemini-1.5-flash-latest")
+        model = genai.GenerativeModel("gemini-2.0-flash")
     except Exception:
         raise HTTPException(status_code=401, detail="Erro ao autenticar com o Gemini. Verifique sua chave de API.")
 
