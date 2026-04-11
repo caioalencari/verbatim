@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Verbatim</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Serif+4:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --navy: #0d1b2a;
+    --navy-mid: #162236;
+    --navy-light: #1e3250;
+    --gold: #c9a84c;
+    --gold-light: #e0c070;
+    --cream: #f4ede0;
+    --cream-dim: #c8bfb0;
+    --red: #c0392b;
+    --green: #27ae60;
+    --border: rgba(201,168,76,0.2);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--navy);
+    color: var(--cream);
+    font-family: 'Source Serif 4', Georgia, serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* HEADER */
+  header {
+    width: 100%;
+    border-bottom: 1px solid var(--border);
+    padding: 18px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--navy-mid);
+  }
+  .logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem;
+    letter-spacing: 0.04em;
+    color: var(--gold);
+  }
+  .logo span { color: var(--cream-dim); font-weight: 300; font-size: 0.82rem; display: block; }
+  #btn-sair {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--cream-dim);
+    padding: 6px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: 'Source Serif 4', serif;
+    font-size: 0.8rem;
+    transition: all 0.2s;
+  }
+  #btn-sair:hover { border-color: var(--gold); color: var(--gold); }
+
+  /* ONBOARDING */
+  #tela-onboarding {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: calc(100vh - 65px);
+    width: 100%;
+    padding: 40px 20px;
+  }
+  .onboarding-card {
+    background: var(--navy-mid);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    max-width: 520px;
+    width: 100%;
+    padding: 48px 44px;
+    position: relative;
+    overflow: hidden;
+  }
+  .onboarding-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+  .onboarding-icone { font-size: 2.4rem; margin-bottom: 20px; display: block; text-align: center; }
+  .onboarding-card h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    color: var(--gold);
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  .onboarding-card .subtitulo {
+    text-align: center;
+    color: var(--cream-dim);
+    font-size: 0.9rem;
+    font-style: italic;
+    margin-bottom: 32px;
+  }
+  .aviso-bloco {
+    background: rgba(201,168,76,0.07);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 18px 20px;
+    margin-bottom: 28px;
+  }
+  .aviso-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 12px;
+    font-size: 0.88rem;
+    color: var(--cream);
+    line-height: 1.5;
+  }
+  .aviso-item:last-child { margin-bottom: 0; }
+  .aviso-item .icone { font-size: 1rem; flex-shrink: 0; margin-top: 1px; }
+  .campo-label {
+    display: block;
+    font-size: 0.82rem;
+    color: var(--cream-dim);
+    margin-bottom: 8px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+  .campo-row { display: flex; gap: 10px; margin-bottom: 6px; }
+  #input-chave {
+    flex: 1;
+    background: var(--navy);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--cream);
+    font-family: 'Source Serif 4', serif;
+    font-size: 0.88rem;
+    padding: 12px 14px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  #input-chave:focus { border-color: var(--gold); }
+  #input-chave::placeholder { color: rgba(200,191,176,0.35); }
+  .link-obter {
+    display: block;
+    font-size: 0.78rem;
+    color: var(--gold);
+    text-decoration: none;
+    margin-bottom: 24px;
+    opacity: 0.8;
+    transition: opacity 0.2s;
+  }
+  .link-obter:hover { opacity: 1; }
+  #btn-entrar {
+    width: 100%;
+    background: var(--gold);
+    color: var(--navy);
+    border: none;
+    border-radius: 6px;
+    padding: 14px;
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+  }
+  #btn-entrar:hover { background: var(--gold-light); }
+  #btn-entrar:active { transform: scale(0.98); }
+  #erro-chave { color: var(--red); font-size: 0.82rem; margin-top: 10px; display: none; }
+
+  /* PRINCIPAL */
+  #tela-principal {
+    display: none;
+    width: 100%;
+    max-width: 900px;
+    padding: 40px 24px;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* ABAS */
+  .abas {
+    display: flex;
+    gap: 0;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 36px;
+    width: 100%;
+  }
+  .aba {
+    padding: 12px 28px;
+    cursor: pointer;
+    font-family: 'Playfair Display', serif;
+    font-size: 0.95rem;
+    color: var(--cream-dim);
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+    background: none;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+  }
+  .aba:hover { color: var(--cream); }
+  .aba.ativa { color: var(--gold); border-bottom-color: var(--gold); }
+
+  /* CONTEÚDO ABAS */
+  .conteudo-aba { display: none; width: 100%; }
+  .conteudo-aba.ativo { display: flex; flex-direction: column; align-items: center; }
+
+  /* BARRA LIMITE */
+  #barra-limite {
+    width: 100%;
+    background: var(--navy-mid);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 28px;
+    font-size: 0.85rem;
+  }
+  .limite-label { color: var(--cream-dim); }
+  .limite-valor { color: var(--gold); font-family: 'Playfair Display', serif; font-size: 1rem; }
+  .limite-barra-outer {
+    flex: 1;
+    height: 6px;
+    background: var(--navy);
+    border-radius: 3px;
+    margin: 0 16px;
+    overflow: hidden;
+  }
+  .limite-barra-inner {
+    height: 100%;
+    background: var(--gold);
+    border-radius: 3px;
+    transition: width 0.5s ease;
+  }
+
+  /* UPLOAD */
+  #zona-upload {
+    width: 100%;
+    border: 2px dashed var(--border);
+    border-radius: 12px;
+    padding: 52px 32px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.25s;
+    margin-bottom: 24px;
+    background: var(--navy-mid);
+  }
+  #zona-upload:hover, #zona-upload.dragover {
+    border-color: var(--gold);
+    background: rgba(201,168,76,0.05);
+  }
+  #zona-upload .upload-icone { font-size: 2.8rem; margin-bottom: 14px; display: block; }
+  #zona-upload h2 { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--cream); margin-bottom: 6px; }
+  #zona-upload p { color: var(--cream-dim); font-size: 0.85rem; font-style: italic; }
+  #input-arquivo { display: none; }
+
+  #arquivo-info {
+    display: none;
+    align-items: center;
+    gap: 14px;
+    background: var(--navy-mid);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin-bottom: 20px;
+    width: 100%;
+  }
+  .arquivo-nome { font-size: 0.9rem; color: var(--cream); flex: 1; }
+  .arquivo-remover {
+    background: none; border: none; color: var(--cream-dim);
+    cursor: pointer; font-size: 1rem; padding: 4px; transition: color 0.2s;
+  }
+  .arquivo-remover:hover { color: var(--red); }
+
+  #btn-transcrever {
+    background: var(--gold);
+    color: var(--navy);
+    border: none;
+    border-radius: 6px;
+    padding: 14px 36px;
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: none;
+    transition: background 0.2s, transform 0.1s;
+    margin-bottom: 32px;
+  }
+  #btn-transcrever:hover { background: var(--gold-light); }
+  #btn-transcrever:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  #aviso-limite {
+    display: none;
+    background: rgba(192,57,43,0.1);
+    border: 1px solid rgba(192,57,43,0.4);
+    border-radius: 8px;
+    padding: 18px 20px;
+    color: #e07060;
+    font-size: 0.88rem;
+    text-align: center;
+    margin-bottom: 20px;
+    line-height: 1.6;
+    width: 100%;
+  }
+
+  #loading {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 32px;
+    color: var(--cream-dim);
+    font-style: italic;
+    font-size: 0.9rem;
+  }
+  .spinner {
+    width: 32px; height: 32px;
+    border: 3px solid var(--border);
+    border-top-color: var(--gold);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* RESULTADO */
+  #resultado { display: none; width: 100%; flex-direction: column; gap: 20px; }
+  .resultado-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 0 12px;
+    border-bottom: 1px solid var(--border);
+  }
+  .resultado-header h3 { font-family: 'Playfair Display', serif; color: var(--gold); font-size: 1.1rem; }
+  .btn-acao {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--cream-dim);
+    padding: 7px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: 'Source Serif 4', serif;
+    font-size: 0.82rem;
+    transition: all 0.2s;
+    margin-left: 8px;
+  }
+  .btn-acao:hover { border-color: var(--gold); color: var(--gold); }
+  .btn-acao.verde:hover { border-color: var(--green); color: var(--green); }
+
+  .pagina-card { background: var(--navy-mid); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+  .pagina-titulo {
+    padding: 10px 18px;
+    background: rgba(201,168,76,0.08);
+    border-bottom: 1px solid var(--border);
+    font-size: 0.78rem;
+    color: var(--gold);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .pagina-texto {
+    padding: 20px;
+    font-size: 0.9rem;
+    line-height: 1.8;
+    color: var(--cream);
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+
+  /* HISTÓRICO */
+  #historico-lista { width: 100%; display: flex; flex-direction: column; gap: 12px; }
+  .historico-vazio {
+    text-align: center;
+    color: var(--cream-dim);
+    font-style: italic;
+    padding: 48px 0;
+    font-size: 0.9rem;
+  }
+  .historico-item {
+    background: var(--navy-mid);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    transition: border-color 0.2s;
+  }
+  .historico-item:hover { border-color: rgba(201,168,76,0.5); }
+  .historico-info { flex: 1; }
+  .historico-nome {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.95rem;
+    color: var(--cream);
+    margin-bottom: 4px;
+    word-break: break-all;
+  }
+  .historico-meta { font-size: 0.78rem; color: var(--cream-dim); font-style: italic; }
+  .historico-acoes { display: flex; gap: 8px; flex-shrink: 0; }
+  .btn-historico {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--cream-dim);
+    padding: 6px 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: 'Source Serif 4', serif;
+    font-size: 0.78rem;
+    transition: all 0.2s;
+  }
+  .btn-historico:hover { border-color: var(--gold); color: var(--gold); }
+  .btn-historico.excluir:hover { border-color: var(--red); color: var(--red); }
+
+  .historico-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    width: 100%;
+  }
+  .historico-header h2 { font-family: 'Playfair Display', serif; color: var(--gold); font-size: 1.1rem; }
+
+  /* AVISO SEGURANÇA */
+  .aviso-seguranca {
+    width: 100%;
+    background: rgba(201,168,76,0.06);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 18px;
+    font-size: 0.8rem;
+    color: var(--cream-dim);
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  @media (max-width: 600px) {
+    header { padding: 16px 20px; }
+    .onboarding-card { padding: 32px 24px; }
+    #tela-principal { padding: 28px 16px; }
+    .aba { padding: 10px 16px; font-size: 0.85rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    Verbatim
+    <span>Transcrição inteligente de documentos</span>
+  </div>
+  <button id="btn-sair" onclick="sair()">Sair</button>
+</header>
+
+<!-- ONBOARDING -->
+<div id="tela-onboarding">
+  <div class="onboarding-card">
+    <span class="onboarding-icone">📜</span>
+    <h1>Verbatim</h1>
+    <p class="subtitulo">Leitura de PDFs com inteligência artificial</p>
+
+    <div class="aviso-bloco">
+      <div class="aviso-item">
+        <span class="icone">🔑</span>
+        <span>Esta ferramenta usa sua conta pessoal do Google para processar documentos. O consumo sai da sua cota gratuita, <strong>sem custo algum</strong>.</span>
+      </div>
+      <div class="aviso-item">
+        <span class="icone">📊</span>
+        <span>O limite gratuito do Google é de <strong>1.500 documentos por dia</strong>. A ferramenta controla automaticamente para não ultrapassar.</span>
+      </div>
+      <div class="aviso-item">
+        <span class="icone">🔒</span>
+        <span>Os PDFs <strong>nunca são salvos</strong>. Apenas o texto transcrito fica armazenado para consulta posterior.</span>
+      </div>
+      <div class="aviso-item">
+        <span class="icone">🛡️</span>
+        <span>Sua chave é salva apenas no seu navegador e <strong>nunca é enviada para terceiros</strong>.</span>
+      </div>
+    </div>
+
+    <label class="campo-label" for="input-chave">Sua chave de API do Google</label>
+    <div class="campo-row">
+      <input type="password" id="input-chave" placeholder="AIza..." autocomplete="off" />
+    </div>
+    <a class="link-obter" href="https://aistudio.google.com/apikey" target="_blank">
+      → Obter chave gratuita no Google AI Studio
+    </a>
+
+    <button id="btn-entrar" onclick="entrar()">Acessar a ferramenta</button>
+    <p id="erro-chave">⚠ Insira uma chave de API válida para continuar.</p>
+  </div>
+</div>
+
+<!-- PRINCIPAL -->
+<div id="tela-principal">
+
+  <div class="abas">
+    <button class="aba ativa" onclick="trocarAba('transcricao', this)">📄 Nova Transcrição</button>
+    <button class="aba" onclick="trocarAba('historico', this)">🗂 Histórico</button>
+  </div>
+
+  <!-- ABA: TRANSCRIÇÃO -->
+  <div id="aba-transcricao" class="conteudo-aba ativo">
+
+    <div id="barra-limite">
+      <span class="limite-label">Uso hoje</span>
+      <div class="limite-barra-outer">
+        <div class="limite-barra-inner" id="barra-progresso" style="width:0%"></div>
+      </div>
+      <span class="limite-valor"><span id="contador-uso">0</span> / 1.500</span>
+    </div>
+
+    <div id="aviso-limite">
+      ⚠️ Limite diário de 1.500 documentos atingido.<br/>
+      O contador reinicia automaticamente à meia-noite. Tente novamente amanhã.
+    </div>
+
+    <div id="arquivo-info">
+      <span style="font-size:1.4rem">📄</span>
+      <span class="arquivo-nome" id="nome-arquivo"></span>
+      <button class="arquivo-remover" onclick="removerArquivo()">✕</button>
+    </div>
+
+    <div id="zona-upload" onclick="document.getElementById('input-arquivo').click()"
+      ondragover="dragOver(event)" ondragleave="dragLeave(event)" ondrop="drop(event)">
+      <span class="upload-icone">⬆️</span>
+      <h2>Arraste o PDF aqui ou clique para selecionar</h2>
+      <p>Apenas arquivos PDF · Múltiplas páginas suportadas</p>
+      <input type="file" id="input-arquivo" accept=".pdf" onchange="selecionarArquivo(event)" />
+    </div>
+
+    <button id="btn-transcrever" onclick="transcrever()">Transcrever documento</button>
+
+    <div id="loading">
+      <div class="spinner"></div>
+      <span id="msg-loading">Processando documento...</span>
+    </div>
+
+    <div id="resultado">
+      <div class="resultado-header">
+        <h3>Transcrição concluída</h3>
+        <div>
+          <button class="btn-acao" onclick="copiarTudo()">Copiar tudo</button>
+          <button class="btn-acao verde" onclick="novaTranscricao()">Nova transcrição</button>
+        </div>
+      </div>
+      <div id="paginas-container"></div>
+    </div>
+
+  </div>
+
+  <!-- ABA: HISTÓRICO -->
+  <div id="aba-historico" class="conteudo-aba">
+    <div class="aviso-seguranca">
+      🔒 Apenas o texto transcrito é armazenado. Os PDFs originais nunca são salvos.
+    </div>
+    <div class="historico-header">
+      <h2>Transcrições salvas</h2>
+      <button class="btn-acao" onclick="carregarHistorico()">↺ Atualizar</button>
+    </div>
+    <div id="historico-lista">
+      <p class="historico-vazio">Carregando...</p>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  const LIMITE_DIARIO = 1500;
+  let arquivoSelecionado = null;
+
+  // CONTADOR DIÁRIO
+  function getContador() {
+    const hoje = new Date().toDateString();
+    const dados = JSON.parse(localStorage.getItem('ocr_contador') || '{}');
+    if (dados.data !== hoje) return 0;
+    return dados.count || 0;
+  }
+  function incrementarContador() {
+    const hoje = new Date().toDateString();
+    const count = getContador() + 1;
+    localStorage.setItem('ocr_contador', JSON.stringify({ data: hoje, count }));
+    atualizarBarraLimite();
+  }
+  function atualizarBarraLimite() {
+    const uso = getContador();
+    const pct = Math.min((uso / LIMITE_DIARIO) * 100, 100);
+    document.getElementById('contador-uso').textContent = uso;
+    document.getElementById('barra-progresso').style.width = pct + '%';
+    document.getElementById('barra-progresso').style.background =
+      pct > 90 ? '#c0392b' : pct > 70 ? '#e67e22' : 'var(--gold)';
+    document.getElementById('aviso-limite').style.display =
+      uso >= LIMITE_DIARIO ? 'block' : 'none';
+  }
+
+  // AUTENTICAÇÃO
+  function entrar() {
+    const chave = document.getElementById('input-chave').value.trim();
+    if (!chave || chave.length < 10) {
+      document.getElementById('erro-chave').style.display = 'block';
+      return;
+    }
+    localStorage.setItem('ocr_apikey', chave);
+    mostrarPrincipal();
+  }
+  function sair() {
+    localStorage.removeItem('ocr_apikey');
+    location.reload();
+  }
+  function mostrarPrincipal() {
+    document.getElementById('tela-onboarding').style.display = 'none';
+    document.getElementById('tela-principal').style.display = 'flex';
+    atualizarBarraLimite();
+  }
+
+  // ABAS
+  function trocarAba(aba, el) {
+    document.querySelectorAll('.aba').forEach(b => b.classList.remove('ativa'));
+    document.querySelectorAll('.conteudo-aba').forEach(c => c.classList.remove('ativo'));
+    el.classList.add('ativa');
+    document.getElementById('aba-' + aba).classList.add('ativo');
+    if (aba === 'historico') carregarHistorico();
+  }
+
+  // UPLOAD
+  function selecionarArquivo(event) {
+    const arquivo = event.target.files[0];
+    if (arquivo) definirArquivo(arquivo);
+  }
+  function definirArquivo(arquivo) {
+    if (!arquivo.name.toLowerCase().endsWith('.pdf')) {
+      alert('Por favor, selecione apenas arquivos PDF.');
+      return;
+    }
+    arquivoSelecionado = arquivo;
+    document.getElementById('nome-arquivo').textContent = arquivo.name;
+    document.getElementById('arquivo-info').style.display = 'flex';
+    document.getElementById('zona-upload').style.display = 'none';
+    document.getElementById('btn-transcrever').style.display = 'inline-block';
+    document.getElementById('resultado').style.display = 'none';
+  }
+  function removerArquivo() {
+    arquivoSelecionado = null;
+    document.getElementById('arquivo-info').style.display = 'none';
+    document.getElementById('zona-upload').style.display = 'block';
+    document.getElementById('btn-transcrever').style.display = 'none';
+    document.getElementById('input-arquivo').value = '';
+  }
+  function dragOver(e) { e.preventDefault(); document.getElementById('zona-upload').classList.add('dragover'); }
+  function dragLeave() { document.getElementById('zona-upload').classList.remove('dragover'); }
+  function drop(e) {
+    e.preventDefault();
+    document.getElementById('zona-upload').classList.remove('dragover');
+    const arquivo = e.dataTransfer.files[0];
+    if (arquivo) definirArquivo(arquivo);
+  }
+
+  // TRANSCRIÇÃO
+  async function transcrever() {
+    if (!arquivoSelecionado) return;
+    if (getContador() >= LIMITE_DIARIO) {
+      document.getElementById('aviso-limite').style.display = 'block';
+      return;
+    }
+    const chave = localStorage.getItem('ocr_apikey');
+    const btn = document.getElementById('btn-transcrever');
+    btn.disabled = true;
+    document.getElementById('loading').style.display = 'flex';
+    document.getElementById('resultado').style.display = 'none';
+
+    const formData = new FormData();
+    formData.append('file', arquivoSelecionado);
+
+    try {
+      const resposta = await fetch('/transcrever', {
+        method: 'POST',
+        headers: { 'X-Api-Key': chave },
+        body: formData
+      });
+      const dados = await resposta.json();
+      if (!resposta.ok) { alert('Erro: ' + (dados.detail || 'Tente novamente.')); return; }
+      incrementarContador();
+      exibirResultado(dados);
+    } catch (e) {
+      alert('Erro de conexão. Verifique se o servidor está rodando.');
+    } finally {
+      document.getElementById('loading').style.display = 'none';
+      btn.disabled = false;
+    }
+  }
+
+  function exibirResultado(dados) {
+    const container = document.getElementById('paginas-container');
+    container.innerHTML = '';
+    dados.paginas.forEach(p => {
+      const card = document.createElement('div');
+      card.className = 'pagina-card';
+      card.innerHTML = `
+        <div class="pagina-titulo">Página ${p.pagina} de ${dados.total_paginas}</div>
+        <div class="pagina-texto">${p.texto.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</div>
+      `;
+      container.appendChild(card);
+    });
+    document.getElementById('resultado').style.display = 'flex';
+    document.getElementById('resultado').scrollIntoView({ behavior: 'smooth' });
+  }
+
+  function copiarTudo() {
+    const textos = [...document.querySelectorAll('.pagina-texto')]
+      .map((el, i) => `=== Página ${i+1} ===\n${el.textContent}`)
+      .join('\n\n');
+    navigator.clipboard.writeText(textos).then(() => {
+      const btn = document.querySelector('#resultado .btn-acao');
+      btn.textContent = '✓ Copiado!';
+      setTimeout(() => btn.textContent = 'Copiar tudo', 2000);
+    });
+  }
+
+  function novaTranscricao() {
+    removerArquivo();
+    document.getElementById('resultado').style.display = 'none';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // HISTÓRICO
+  async function carregarHistorico() {
+    const lista = document.getElementById('historico-lista');
+    lista.innerHTML = '<p class="historico-vazio">Carregando...</p>';
+    try {
+      const res = await fetch('/historico');
+      const dados = await res.json();
+      if (!dados.length) {
+        lista.innerHTML = '<p class="historico-vazio">Nenhuma transcrição salva ainda.</p>';
+        return;
+      }
+      lista.innerHTML = '';
+      dados.forEach(item => {
+        const div = document.createElement('div');
+        div.className = 'historico-item';
+        div.innerHTML = `
+          <div class="historico-info">
+            <div class="historico-nome">📄 ${item.nome_arquivo}</div>
+            <div class="historico-meta">${item.total_paginas} página(s) · ${item.criado_em}</div>
+          </div>
+          <div class="historico-acoes">
+            <button class="btn-historico" onclick="verTranscricao(${item.id})">Ver</button>
+            <button class="btn-historico excluir" onclick="excluirTranscricao(${item.id}, this)">Excluir</button>
+          </div>
+        `;
+        lista.appendChild(div);
+      });
+    } catch (e) {
+      lista.innerHTML = '<p class="historico-vazio">Erro ao carregar histórico.</p>';
+    }
+  }
+
+  async function verTranscricao(id) {
+    try {
+      const res = await fetch(`/historico/${id}`);
+      const dados = await res.json();
+
+      // Muda para aba de transcrição e exibe
+      document.querySelectorAll('.aba').forEach(b => b.classList.remove('ativa'));
+      document.querySelectorAll('.conteudo-aba').forEach(c => c.classList.remove('ativo'));
+      document.querySelectorAll('.aba')[0].classList.add('ativa');
+      document.getElementById('aba-transcricao').classList.add('ativo');
+
+      removerArquivo();
+      document.getElementById('nome-arquivo').textContent = dados.nome_arquivo;
+      document.getElementById('arquivo-info').style.display = 'flex';
+      document.getElementById('zona-upload').style.display = 'none';
+
+      exibirResultado(dados);
+    } catch (e) {
+      alert('Erro ao carregar transcrição.');
+    }
+  }
+
+  async function excluirTranscricao(id, btn) {
+    if (!confirm('Excluir esta transcrição permanentemente?')) return;
+    try {
+      await fetch(`/historico/${id}`, { method: 'DELETE' });
+      btn.closest('.historico-item').remove();
+      const lista = document.getElementById('historico-lista');
+      if (!lista.children.length) {
+        lista.innerHTML = '<p class="historico-vazio">Nenhuma transcrição salva ainda.</p>';
+      }
+    } catch (e) {
+      alert('Erro ao excluir.');
+    }
+  }
+
+  // INIT
+  window.addEventListener('keydown', e => {
+    if (e.key === 'Enter' && document.getElementById('tela-onboarding').style.display !== 'none') entrar();
+  });
+
+  const chaveSalva = localStorage.getItem('ocr_apikey');
+  if (chaveSalva) mostrarPrincipal();
+</script>
+</body>
+</html>
